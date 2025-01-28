@@ -1,12 +1,12 @@
 {
   "name": "bienesraices",
   "version": "1.0.0",
-  "description": "Curso Desarrollo Web Completo",
+  "description": "bienesraices",
   "main": "gulpfile.js",
   "scripts": {
     "dev": "gulp"
   },
-  "author": "Juan De La Torre",
+  "author": "Eduardo Constancio",
   "license": "ISC",
   "devDependencies": {
     "cssnano": "^5.1.0",
