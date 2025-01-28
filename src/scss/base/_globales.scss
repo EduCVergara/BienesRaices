@@ -1,3 +1,5 @@
+@use '../base/variables.scss' as *;
+@use 'sass:math';
 html {
     font-size: 62.5%;
     box-sizing: border-box;
@@ -32,7 +34,7 @@ picture {
 
 h1, h2, h3 {
     font-family: $fuente_principal;
-    margin: calc($separacion / 2) 0;
+    margin: math.div($separacion, 2) 0;
     font-weight: 300;
     text-align: center;
     
