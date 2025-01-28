@@ -10,11 +10,10 @@
 
 .anuncio {
     background-color: color.adjust($gris, $lightness: 5%);
-    border: 1px solid color.adjust($gris, $lightness: 10%);
+    border: 1px solid color.adjust($gris, $lightness: -5%);
 
     .contenido-anuncio {
         padding: 2rem;
-        
     }
     h3, p {
         margin: 0;
@@ -34,7 +33,7 @@
         flex: 1; // indica que cada li recibe 1px del espacio disponible, tomando todo el espacio disponible, para que cada uno mida lo mismo.
         display: flex;
         img {
-            flex: 0 0 5rem;
+            flex: 0 0 3rem;
             margin-right: 1rem;
         }
         p {
