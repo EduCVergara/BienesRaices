@@ -22,6 +22,12 @@
     }
 }
 
+.informacion-meta {
+    span {
+    color: $amarillo;
+    }
+}
+
 .texto-entrada {
 
     a{
@@ -49,9 +55,5 @@
         &:hover::after {
             width: 100%;
         }
-        
-    }
-    span {
-        color: $amarillo;
     }
 }
