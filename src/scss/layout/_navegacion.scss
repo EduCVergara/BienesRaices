@@ -2,10 +2,21 @@
 @use '../base/variables' as *;
 @use 'sass:color';
 
+// .derecha {
+//     display: flex;
+//     flex-direction: column;
+//     align-items: center;
+
+//     @include tablet {
+//         align-items: flex-end;
+//     }
+// }
+
+
 .dark-mode-button {
     width: 4rem;
-    margin-left: 3rem;
-    background-color: color.mix($blanco, transparent, 30%);
+    margin-left: 2.5rem;
+    background-color: color.mix($blanco, transparent, 10%);
     border-radius: 4rem;
     padding: .3rem;
     transition: all .3s;
@@ -27,10 +38,10 @@
 }
 
 .navegacion {
-
     visibility: hidden;
     opacity: 0;
-    transition: transform .3s ease-in-out, visibility .3s ease-in-out, opacity .3s linear;
+    height: 0;
+    transition: transform .3s ease-in-out, visibility .3s ease-in-out, opacity .3s linear, height .3s linear;
 
     @include tablet {
         display: flex;
@@ -74,4 +85,5 @@
 .mostrar {
     visibility: visible;
     opacity: 1;
+    height: auto;
 }

@@ -4,11 +4,12 @@
 .dark-mode {
     background-color: color.adjust($grisOscuro, $lightness: 0%);
     transition: all .3s;
+    
     p, a, h1, h3, h4 {
         color: $blanco;
     }
 
-    a, h1, h3, h4 {
+    a, h1, h2, h3, h4 {
         color: $gris;
     }
 
@@ -23,6 +24,4 @@
             filter: invert(1);
         }
     }
-
-    
 }
