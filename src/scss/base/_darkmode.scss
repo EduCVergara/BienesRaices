@@ -1,0 +1,28 @@
+@use '../base/variables' as *;
+@use 'sass:color';
+
+.dark-mode {
+    background-color: color.adjust($grisOscuro, $lightness: 0%);
+    transition: all .3s;
+    p, a, h1, h3, h4 {
+        color: $blanco;
+    }
+
+    a, h1, h3, h4 {
+        color: $gris;
+    }
+
+    .anuncio {
+        background-color: $grisOscuro;
+        border: 1px solid $grisOscuro;
+
+        .precio {
+            color: $verde;
+        }
+        .icono {
+            filter: invert(1);
+        }
+    }
+
+    
+}

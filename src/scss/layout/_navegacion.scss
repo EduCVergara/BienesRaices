@@ -1,9 +1,24 @@
 @use '../base/mixins' as *;
 @use '../base/variables' as *;
+@use 'sass:color';
+
+.dark-mode-button {
+    width: 4rem;
+    margin-left: 3rem;
+    background-color: color.mix($blanco, transparent, 30%);
+    border-radius: 4rem;
+    padding: .3rem;
+    transition: all .3s;
+    &:hover {
+        cursor: pointer;
+        filter: invert(1);
+    }
+}
 
 .barra {
     display: flex;
     flex-direction: column;
+    align-items: center;
     padding-top: 3rem;
     @include tablet {
         flex-direction: row;
@@ -13,9 +28,15 @@
 
 .navegacion {
 
+    visibility: hidden;
+    opacity: 0;
+    transition: transform .3s ease-in-out, visibility .3s ease-in-out, opacity .3s linear;
+
     @include tablet {
         display: flex;
         align-items: center;
+        opacity: 1;
+        visibility: visible;
     }
     a{
         color: $blanco;
@@ -36,4 +57,21 @@
             }
         }
     }
+}
+
+// *Menú de hamburguesa*//
+
+.mobile-menu {
+    @include tablet {
+        display: none;
+    }
+
+    img {
+        width: 5rem;
+    }
+}
+
+.mostrar {
+    visibility: visible;
+    opacity: 1;
 }
