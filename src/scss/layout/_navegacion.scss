@@ -32,6 +32,17 @@
         flex-direction: row;
         justify-content: space-between;
     }
+    a {
+        img {
+            margin-bottom: 2rem;
+            width: auto;
+            height: 50px;
+            @include tablet {
+                margin-bottom: 0;
+                padding-bottom: .1rem;
+            }
+        }
+    }
 }
 
 .navegacion {
