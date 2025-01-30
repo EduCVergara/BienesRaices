@@ -2,15 +2,12 @@
 @use '../base/variables' as *;
 @use 'sass:color';
 
-// .derecha {
-//     display: flex;
-//     flex-direction: column;
-//     align-items: center;
-
-//     @include tablet {
-//         align-items: flex-end;
-//     }
-// }
+.derecha {
+    
+    @include tablet {
+        
+    }
+}
 
 
 .dark-mode-button {
