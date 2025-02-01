@@ -13,13 +13,14 @@
 .dark-mode-button {
     width: 4rem;
     margin-left: 2.5rem;
-    background-color: color.mix($blanco, transparent, 10%);
+    filter: invert(1);
     border-radius: 4rem;
     padding: .3rem;
     transition: all .3s;
     &:hover {
         cursor: pointer;
-        filter: invert(1);
+        filter: invert(0);
+        background-color: color.mix($blanco, transparent, 75%);
     }
 }
 
@@ -87,6 +88,7 @@
 
     img {
         width: 5rem;
+        cursor: pointer;
     }
 }
 

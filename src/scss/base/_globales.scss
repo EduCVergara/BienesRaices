@@ -11,6 +11,7 @@ body {
     font-family: $fuente_principal;
     font-size: 1.6rem;
     line-height: 1.8;
+    transition: all .3s;
 }
 p {
     color: $negro;

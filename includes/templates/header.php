@@ -8,7 +8,7 @@
 
 </head>
 <body>
-    <header class="header">
+    <header class="header <?php echo $inicio ? 'inicio' : ''; ?>">
         <div class="contenedor contenido-header">
             <div class="barra">
                 <a href="/">
@@ -21,36 +21,15 @@
 
                 <div class="derecha">
                     <nav class="navegacion">
-                        <a href="nosotros.html">Nosotros</a>
-                        <a href="anuncios.html">Anuncios</a>
-                        <a href="blog.html">Blog</a>
-                        <a href="contacto.html">Contacto</a>
+                        <a href="nosotros.php">Nosotros</a>
+                        <a href="anuncios.php">Anuncios</a>
+                        <a href="blog.php">Blog</a>
+                        <a href="contacto.php">Contacto</a>
                         <img class="dark-mode-button" src="build/img/dark-mode.svg" alt="modo-oscuro">
                     </nav>
-                    
                 </div>
-
+                
             </div> <!--Cierre barra-->
+            <?php echo $inicio ? '<h1>Venta de Casas y Departamentos Exclusivos de Lujo</h1>' : ''; ?>
         </div>
     </header>
-
-    <main class="contenedor seccion">
-        <h1>Título página</h1>
-    </main>
-
-    <footer class="footer seccion">
-        <div class="contenedor">
-            <nav class="navegacion">
-                <a href="nosotros.html">Nosotros</a>
-                <a href="anuncios.html">Anuncios</a>
-                <a href="blog.html">Blog</a>
-                <a href="contacto.html">Contacto</a>
-            </nav>
-        </div>
-
-        <p class="copyright">Todos los Derechos Reservados 2025 &copy;</p>
-    </footer>
-
-    <script src="build/js/bundle.min.js"></script>
-</body>
-</html>
