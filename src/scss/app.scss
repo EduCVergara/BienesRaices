@@ -5,6 +5,7 @@
 @use 'base/utilidades';
 @use 'base/botones';
 @use 'base/darkmode';
+@use 'base/modal';
 
 /** UI **/
 @use 'layout/header';
@@ -19,3 +20,4 @@
 
 /** Páginas Internas **/
 @use 'internas/nosotros';
+@use 'internas/admin';

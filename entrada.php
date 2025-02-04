@@ -20,4 +20,4 @@
             <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Cupiditate eveniet illum, iste totam non ratione quibusdam consequuntur libero facere fuga iure magnam quod necessitatibus quo! Nostrum excepturi cupiditate quos sequi?</p>
         </div>
     </main>
-<?php include 'includes/templates/footer.php'; ?>
+    <?php incluirTemplate('footer'); ?>

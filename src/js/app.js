@@ -45,3 +45,14 @@ function navegacionResponsive() {
 
     navegacion.classList.toggle('mostrar');
 }
+
+// Script Mostrar/Ocultar modal
+function mostrarModal() {
+    const modal = document.getElementById("modalExito");
+    modal.classList.add("show");  // Muestra el modal
+}
+
+function cerrarModal() {
+    const modal = document.getElementById("modalExito");
+    modal.classList.remove("show");  // Oculta el modal
+}
