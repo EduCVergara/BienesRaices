@@ -11,4 +11,40 @@
     &.error {
         background-color: $rojo;
     }
+    &.exito {
+        background-color: $verde;
+    }
+}
+
+table.propiedades {
+    margin-top: 3rem;
+    width: 100%;
+    border-spacing: 0;
+
+    thead {
+        background-color: $verde;
+
+        th {
+            color: $blanco;
+            padding: 1rem;
+        }
+    }
+
+    .imagen-tabla {
+        width: 10rem;
+    }
+
+    tbody {
+        tr {
+            td {
+                border-bottom: 2px;
+                border-color: $gris;
+                border-bottom-style: solid;
+            } 
+        } 
+    }
+}
+
+.imagen-small {
+    width: 30rem;
 }
