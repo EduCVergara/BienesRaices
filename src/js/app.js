@@ -46,13 +46,26 @@ function navegacionResponsive() {
     navegacion.classList.toggle('mostrar');
 }
 
-// Script Mostrar/Ocultar modal
-function mostrarModal() {
-    const modal = document.getElementById("modalExito");
-    modal.classList.add("show");  // Muestra el modal
-}
+// Eliminación de msje de confirmación
 
-function cerrarModal() {
-    const modal = document.getElementById("modalExito");
-    modal.classList.remove("show");  // Oculta el modal
+document.addEventListener('DOMContentLoaded', function() {
+    eventListeners();
+    if(window.innerWidth <= 768){
+        temporaryClass(document.querySelector('.navegacion'), 'visibilidadTemporal', 500);
+    }
+ 
+    //Eliminar texto de confirmación de CRUD en admin/index.php
+    borraMensaje();
+});
+ 
+function borraMensaje() {
+    const mensajeConfirm = document.querySelector('.alerta');
+    if (mensajeConfirm !== null) {
+        setTimeout(function() {
+            mensajeConfirm.classList.add('fade-out'); // Agrega la clase para el fade
+            setTimeout(() => {
+                mensajeConfirm.remove(); // Lo elimina después de la animación
+            }, 500); // Debe coincidir con la duración en CSS
+        }, 3000); // Espera antes de iniciar el fade
+    }
 }

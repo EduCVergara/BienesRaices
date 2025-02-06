@@ -13,6 +13,32 @@
     // Muestra mensaje condicional
     $resultado = $_GET['resultado'] ?? null;
 
+    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+        $id = $_POST['id'];
+        $id = filter_var($id, FILTER_VALIDATE_INT);
+
+        if ($id) {
+
+            // Eliminar el archivo
+            $query = "SELECT imagen FROM propiedades WHERE id={$id}";
+            
+            $resultado = mysqli_query($db, $query);
+            $propiedad = mysqli_fetch_assoc($resultado);
+
+            unlink('../imagenes/' . $propiedad['imagen']);
+            exit;
+
+            // Eliminar la propiedad
+            $query = "DELETE FROM propiedades WHERE id={$id}";
+
+            $resultado = mysqli_query($db, $query);
+
+            if ($resultado) {
+                header('location: /admin?resultado=3');
+            }
+        }
+    }
+
     // Incluye un template
     require '../includes/funciones.php';
     $inicio = true;
@@ -23,6 +49,10 @@
 
         <?php if($resultado == 1): ?>
             <p class="alerta exito">Propiedad Agregada Correctamente</p>
+        <?php elseif($resultado == 2): ?>
+            <p class="alerta exito">Datos Actualizados Correctamente</p>
+        <?php elseif($resultado == 3): ?>
+            <p class="alerta exito">Propiedad Eliminada</p>
         <?php endif; ?>
 
         <a href="/admin/propiedades/crear.php" class="boton boton-verde">Nueva Propiedad</a>
@@ -48,7 +78,13 @@
                     <td>$<?php echo number_format($propiedad['precio']); ?></td>
                     <td>
                         <a href="admin/propiedades/actualizar.php?id=<?php echo $propiedad['id']; ?>" class="boton-amarillo-block">Actualizar</a>
-                        <a href="#" class="boton-rojo-block">Eliminar</a>
+                        
+                        <form method="POST" class="w-100">
+
+                            <input type="hidden" name="id" value="<?php echo $propiedad['id'] ?>">
+
+                            <input type="submit" class="boton-rojo-block" value="Eliminar">    
+                        </form>
                     </td>
                 </tr>
                 <?php endwhile; ?>
