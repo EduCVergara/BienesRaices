@@ -53,4 +53,15 @@
             }
         }
     }
+
+    .modal {
+        .modal-contenido {
+            h2 {
+                font-weight: bold;
+            }
+            h2, p {
+                color: $grisOscuro;
+            }
+        }
+    }
 }

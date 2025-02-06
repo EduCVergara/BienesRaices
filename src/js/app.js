@@ -69,3 +69,23 @@ function borraMensaje() {
         }, 3000); // Espera antes de iniciar el fade
     }
 }
+
+// Modal confirmación de eliminación
+function abrirModal(event, id) {
+    event.preventDefault(); // Evita que el formulario se envíe
+
+    if (!id || isNaN(id) || id <= 0) {
+        alert("ID no válido. No se puede eliminar la propiedad.");
+        return false;
+    }
+
+    // Guardamos el ID en el input del modal
+    document.getElementById("idEliminar").value = id;
+    
+    // Mostramos el modal
+    document.getElementById("modalConfirmacion").style.display = "flex";
+}
+
+function cerrarModal() {
+    document.getElementById("modalConfirmacion").style.display = "none";
+}

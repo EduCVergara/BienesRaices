@@ -26,7 +26,6 @@
             $propiedad = mysqli_fetch_assoc($resultado);
 
             unlink('../imagenes/' . $propiedad['imagen']);
-            exit;
 
             // Eliminar la propiedad
             $query = "DELETE FROM propiedades WHERE id={$id}";
@@ -79,11 +78,9 @@
                     <td>
                         <a href="admin/propiedades/actualizar.php?id=<?php echo $propiedad['id']; ?>" class="boton-amarillo-block">Actualizar</a>
                         
-                        <form method="POST" class="w-100">
-
+                        <form method="POST" class="w-100 form-eliminacion" onsubmit="return abrirModal(event, <?php echo $propiedad['id']; ?>)">
                             <input type="hidden" name="id" value="<?php echo $propiedad['id'] ?>">
-
-                            <input type="submit" class="boton-rojo-block" value="Eliminar">    
+                            <input type="submit" class="boton-rojo-block" value="Eliminar">
                         </form>
                     </td>
                 </tr>
@@ -91,6 +88,20 @@
             </tbody>
         </table>
     </main>
+
+    <!-- Modal de Confirmación -->
+    <div id="modalConfirmacion" class="modal">
+        <div class="modal-contenido">
+            <h2>Confirmar Eliminación</h2>
+            <p>¿Estás seguro de que deseas eliminar esta propiedad?</p>
+            
+            <form id="formEliminar" method="POST" class="w-100">
+                <input type="hidden" name="id" id="idEliminar">
+                <button type="submit" class="boton-rojo-block">Sí, eliminar</button>
+                <button type="button" class="boton-amarillo-block" onclick="cerrarModal()">Cancelar</button>
+            </form>
+        </div>
+    </div>
 
     <?php 
     
