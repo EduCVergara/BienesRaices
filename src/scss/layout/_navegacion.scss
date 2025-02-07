@@ -77,6 +77,11 @@
             }
         }
     }
+    .cerrar-sesion:hover {
+        background-color: rgba($rojo, $alpha: .4);
+        padding: .1rem .5rem;
+        border-radius: 1.5rem;
+    }
 }
 
 // *Menú de hamburguesa*//
