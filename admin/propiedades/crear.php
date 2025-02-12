@@ -12,10 +12,8 @@
     $queryVendedores = "SELECT * FROM vendedores";
     $resultado = mysqli_query($db, $queryVendedores);
 
-
     // Array con mensajes de errores
-
-    $errores = [];
+    $errores = Propiedad::getErrores();
 
     $titulo = '';
     $precio = '';
@@ -30,68 +28,24 @@
 
         $propiedad = new Propiedad($_POST);
 
-        $propiedad->guardar();
+        $errores = $propiedad->validar();
 
-        $titulo = mysqli_real_escape_string($db, $_POST['titulo']);
-        $precio = mysqli_real_escape_string($db, $_POST['precio']);
-        $descripcion = mysqli_real_escape_string($db, $_POST['descripcion']);
-        $habitaciones = mysqli_real_escape_string($db, $_POST['habitaciones']);
-        $wc = mysqli_real_escape_string($db, $_POST['wc']);
-        $estacionamiento = mysqli_real_escape_string($db, $_POST['estacionamiento']);
-        $vendedorId = mysqli_real_escape_string($db, $_POST['vendedor']);
-        $creado = date('Y/m/d');
-
-        //asignación de FILEs hacia una variable
-
-        $imagen = $_FILES['imagen'];
-
-        if(!$titulo) {
-            $errores[] = "La propiedad debe tener un <strong>título</strong>";
-        }
-
-        if(!$precio) {
-            $errores[] = "La propiedad debe tener un <strong>precio</strong>";
-        }
-
-        if(strlen($descripcion) < 50) {
-            $errores[] = "La propiedad debe tener una <strong>descripcion</strong>, y debe tener al menos 50 caracteres para más posibilidades de venta";
-        }
-
-        if(!$habitaciones) {
-            $errores[] = "La propiedad debe tener <strong>habitaciones</strong>";
-        }
-
-        if(!$wc) {
-            $errores[] = "La propiedad debe especificar cuantos <strong>baños</strong> tiene";
-        }
-
-        if(!$estacionamiento) {
-            $errores[] = "La propiedad debe especificar cuantos <strong>estacionamientos</strong> tiene";
-        }
-
-        if(!$vendedorId) {
-            $errores[] = "Debes elegir un  <strong>vendedor</strong>";
-        }
-
-        if(!$imagen['name'] || $imagen['error']) {
-            $errores[] = "La propiedad debe contener una <strong>imagen</strong>";
-        }
-
-        // Validación por tamaño
-        $medida = 1000 * 1000;
-
-        if($imagen['size'] > $medida) {
-            $errores[] = "La imagen no debe superar los 1000kb (1mb)";
-        }
-
-        // echo "<pre>";
-        // var_dump($errores);
-        // echo "</pre>";
-
-        // exit;
-
-        // Revisar que el arreglo de errores esté vacío
         if (empty($errores)) {
+
+            
+            $propiedad->guardar();
+
+            //asignación de FILES hacia una variable
+
+            $imagen = $_FILES['imagen'];
+
+            // echo "<pre>";
+            // var_dump($errores);
+            // echo "</pre>";
+
+            // exit;
+
+            // Revisar que el arreglo de errores esté vacío
 
             // * Subida de Archivos *//
 
@@ -107,9 +61,6 @@
 
             // Subir la Imagen
             move_uploaded_file($imagen['tmp_name'], $carpetaImagenes . $nombreImagen);
-
-            // Insertar en la base de datos
-            $query = "INSERT INTO propiedades (titulo, precio, imagen, descripcion, habitaciones, wc, estacionamiento, creado, vendedores_id) VALUES ('$titulo', '$precio', '$nombreImagen', '$descripcion', '$habitaciones', '$wc', '$estacionamiento', '$creado', '$vendedorId')";
 
             // echo $query;
             $resultado = mysqli_query($db, $query);

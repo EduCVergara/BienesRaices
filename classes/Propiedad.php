@@ -8,6 +8,9 @@ class Propiedad {
     protected static $db;
     protected static $columnasDB = ['id', 'titulo', 'precio', 'imagen', 'descripcion', 'habitaciones', 'wc', 'estacionamiento', 'creado', 'vendedores_id'];
 
+    // Errores
+    protected static $errores = [];
+
     public $id;
     public $titulo;
     public $precio;
@@ -43,13 +46,22 @@ class Propiedad {
         // Sanitizar datos
         $atributos = $this->sanitizarDatos();
 
+
         // Insertar en la base de datos
-        $query = "INSERT INTO propiedades (titulo, precio, imagen, descripcion, habitaciones, wc, estacionamiento, creado, vendedores_id) 
-        VALUES ('$this->titulo', '$this->precio', '$this->imagen', '$this->descripcion', '$this->habitaciones', '$this->wc', '$this->estacionamiento', '$this->creado', '$this->vendedores_id')";
+        // Manera tradicional
+        // $query = "INSERT INTO propiedades (titulo, precio, imagen, descripcion, habitaciones, wc, estacionamiento, creado, vendedores_id) 
+        // VALUES ('$this->titulo', '$this->precio', '$this->imagen', '$this->descripcion', '$this->habitaciones', '$this->wc', '$this->estacionamiento', '$this->creado', '$this->vendedores_id')";
+        // Manera mejorada:
+        $query = "INSERT INTO propiedades (";
+        $query .= join(', ', array_keys($atributos));
+        $query .= ") VALUES ('";
+        $query .= join("', '", array_values($atributos));
+        $query .= "')";
 
         $resultado = self::$db->query($query);
 
         debuguear($resultado);
+
     }
 
     // Identificar y unir atributos de la BD
@@ -73,4 +85,51 @@ class Propiedad {
         return $sanitizado;
     }
 
+    // Validación
+    public static function getErrores() {
+        return self::$errores;
+    }
+
+    public function validar() {
+        if(!$this->titulo) {
+            self::$errores[] = "La propiedad debe tener un <strong>título</strong>";
+        }
+
+        if(!$this->precio) {
+            self::$errores[] = "La propiedad debe tener un <strong>precio</strong>";
+        }
+
+        if(strlen($this->descripcion) < 50) {
+            self::$errores[] = "La propiedad debe tener una <strong>descripcion</strong>, y debe tener al menos 50 caracteres para más posibilidades de venta";
+        }
+
+        if(!$this->habitaciones) {
+            self::$errores[] = "La propiedad debe tener <strong>habitaciones</strong>";
+        }
+
+        if(!$this->wc) {
+            self::$errores[] = "La propiedad debe especificar cuantos <strong>baños</strong> tiene";
+        }
+
+        if(!$this->estacionamiento) {
+            self::$errores[] = "La propiedad debe especificar cuantos <strong>estacionamientos</strong> tiene";
+        }
+
+        if(!$this->vendedores_id) {
+            self::$errores[] = "Debes elegir un  <strong>vendedor</strong>";
+        }
+
+        // if(!$this->imagen['name'] || $this->imagen['error']) {
+        //     self::$errores[] = "La propiedad debe contener una <strong>imagen</strong>";
+        // }
+
+        // // // Validación por tamaño
+        // // $medida = 1000 * 1000;
+
+        // if($imagen['size'] > $medida) {
+        //     self::$errores[] = "La imagen no debe superar los 1000kb (1mb)";
+        // }
+
+        return self::$errores;
+    }
 }
