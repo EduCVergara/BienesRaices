@@ -1,13 +1,12 @@
 <?php 
-    require '../../includes/funciones.php';
-    // Comprobar la sesión
-    $auth = Autenticado();
+    require '../../includes/app.php';
 
-    if (!$auth) {
-        header('Location: /login.php');
-    }
-    //Base de datos
-    require "../../includes/config/database.php";
+    use App\Propiedad;
+
+    // Comprobar la sesión
+    Autenticado();
+
+    // Conectar a la bd
     $db = conectarDB();
     // Consultar para obtener los vendedores
     $queryVendedores = "SELECT * FROM vendedores";
@@ -29,13 +28,9 @@
     // Ejecutar el código luego de que el usuario envía el formulario
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
-        // echo "<pre>";
-        // var_dump($_POST);
-        // echo "</pre>";
-        
-        echo "<pre>";
-        var_dump($_FILES);
-        echo "</pre>";
+        $propiedad = new Propiedad($_POST);
+
+        $propiedad->guardar();
 
         $titulo = mysqli_real_escape_string($db, $_POST['titulo']);
         $precio = mysqli_real_escape_string($db, $_POST['precio']);
@@ -110,8 +105,6 @@
             // Generar nombre único a imagen
             $nombreImagen = md5(uniqid(rand(), true)) . ".jpg";
 
-            var_dump($nombreImagen);
-
             // Subir la Imagen
             move_uploaded_file($imagen['tmp_name'], $carpetaImagenes . $nombreImagen);
 
@@ -180,7 +173,7 @@
             <fieldset>
                 <legend>Vendedor</legend>
 
-                <select name="vendedor">
+                <select name="vendedores_id">
                     <option value="">-- Seleccione un Vendedor--</option>
                     <?php while($vendedor = mysqli_fetch_assoc($resultado) ) : ?>
                         <option <?php echo $vendedorId === $vendedor['id'] ? 'selected' : ''; ?> value="<?php echo $vendedor['id']; ?>"><?php echo $vendedor['nombre'] . " " . $vendedor['apellido']; ?></option>

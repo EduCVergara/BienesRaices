@@ -1,6 +1,7 @@
 <?php 
 
-    require 'includes/config/database.php';
+    require 'includes/app.php';
+    // Conectamos a la bd
     $db = conectarDB();
 
     $errores = [];
@@ -24,7 +25,6 @@
             // Revisar si el usuario existe
             $query = "SELECT * FROM usuarios WHERE email = '{$email}'";
             $resultado = mysqli_query($db, $query);
-            var_dump($resultado);
 
             if ($resultado->num_rows) {
                 // Revisar si el password es correcto
@@ -33,7 +33,6 @@
                 // Verificar si el password es correcto o no
                 $auth = password_verify($password, $usuario['password']);
 
-                var_dump($auth);
                 if ($auth) {
                     // Usuario autenticado
                     session_start();
@@ -54,7 +53,6 @@
     }
 
     // Incluye el header
-    require 'includes/funciones.php';
     incluirTemplate('header');
 ?>
     <main class="contenedor seccion contenido-centrado">

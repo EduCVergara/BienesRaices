@@ -1,7 +1,7 @@
 <?php 
     declare(strict_types = 1);
 
-    require 'includes/funciones.php';
+    require 'includes/app.php';
     $inicio = true;
     incluirTemplate('header', true);
 ?>

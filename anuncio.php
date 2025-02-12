@@ -1,10 +1,9 @@
 <?php 
-    require 'includes/funciones.php';
+    require 'includes/app.php';
     $inicio = true;
     incluirTemplate('header');
  
-    // Importar BD
-        require 'includes/config/database.php';
+    // Conectamos a bd
         $db = conectarDB();
 
     // Validacion de Id válido
