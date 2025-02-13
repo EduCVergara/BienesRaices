@@ -1,15 +1,11 @@
 <?php
     require '../includes/app.php';
-    // Comprobar la sesión
     Autenticado();
 
-    $db = conectarDB();
+    use App\Propiedad;
 
-    // Escribir el Query
-    $query = "SELECT * FROM propiedades";
-
-    // Consultar la base de datos
-    $resultadoQuery = mysqli_query($db, $query);
+    // Implementar un método para obtener propiedades utilizando ActiveRecord
+    $propiedades = Propiedad::all();
 
     // Muestra mensaje condicional
     $resultado = $_GET['resultado'] ?? null;
@@ -68,23 +64,23 @@
             </thead>
 
             <tbody> <!-- Mostrar los resultados -->
-                <?php while ($propiedad = mysqli_fetch_assoc($resultadoQuery)): ?>
+                <?php foreach($propiedades as $propiedad): ?>
                 
                 <tr>
-                    <td><?php echo $propiedad['id']; ?></td>
-                    <td><?php echo $propiedad['titulo']; ?></td>
-                    <td><img src="/imagenes/<?php echo $propiedad['imagen']; ?>" class="imagen-tabla"></td>
-                    <td>$<?php echo number_format($propiedad['precio']); ?></td>
+                    <td><?php echo $propiedad->id; ?></td>
+                    <td><?php echo $propiedad->titulo; ?></td>
+                    <td><img src="/imagenes/<?php echo $propiedad->imagen; ?>" class="imagen-tabla"></td>
+                    <td>$<?php echo number_format($propiedad->precio); ?></td>
                     <td>
-                        <a href="admin/propiedades/actualizar.php?id=<?php echo $propiedad['id']; ?>" class="boton-amarillo-block">Actualizar</a>
+                        <a href="admin/propiedades/actualizar.php?id=<?php echo $propiedad->id; ?>" class="boton-amarillo-block">Actualizar</a>
                         
-                        <form method="POST" class="w-100 form-eliminacion" onsubmit="return abrirModal(event, <?php echo $propiedad['id']; ?>)">
-                            <input type="hidden" name="id" value="<?php echo $propiedad['id'] ?>">
+                        <form method="POST" class="w-100 form-eliminacion" onsubmit="return abrirModal(event, <?php echo $propiedad->id; ?>)">
+                            <input type="hidden" name="id" value="<?php echo $propiedad->id ?>">
                             <input type="submit" class="boton-rojo-block" value="Eliminar">
                         </form>
                     </td>
                 </tr>
-                <?php endwhile; ?>
+                <?php endforeach; ?>
             </tbody>
         </table>
     </main>

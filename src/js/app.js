@@ -59,15 +59,16 @@ document.addEventListener('DOMContentLoaded', function() {
 });
  
 function borraMensaje() {
-    const mensajeConfirm = document.querySelector('.alerta');
-    if (mensajeConfirm !== null) {
-        setTimeout(function() {
-            mensajeConfirm.classList.add('fade-out'); // Agrega la clase para el fade
+    const mensajes = document.querySelectorAll('.alerta'); // Selecciona todos los mensajes
+
+    mensajes.forEach((mensaje, index) => {
+        setTimeout(() => {
+            mensaje.classList.add('fade-out'); // Agrega la clase para el efecto
             setTimeout(() => {
-                mensajeConfirm.remove(); // Lo elimina después de la animación
-            }, 500); // Debe coincidir con la duración en CSS
-        }, 3000); // Espera antes de iniciar el fade
-    }
+                mensaje.remove(); // Elimina después del fade
+            }, 500); // Debe coincidir con la duración del fade en CSS
+        }, 3000 + (index * 1000)); // Intervalo escalonado entre eliminaciones
+    });
 }
 
 // Modal confirmación de eliminación
