@@ -23,14 +23,14 @@ use Intervention\Image\ImageManager as Image;
     // Ejecutar el código luego de que el usuario envía el formulario
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
-        $propiedad = new Propiedad($_POST);
+        $propiedad = new Propiedad($_POST['propiedad']);
 
         // Generar nombre único a imagen
         $nombreImagen = md5(uniqid(rand(), true)) . ".jpg";
 
-        if ($_FILES['imagen']['tmp_name']) {
+        if ($_FILES['propiedad']['tmp_name']['imagen']) {
             $manager = new Image(Driver::class);// $manager es la variable para intervention image (subir imágenes con POO instalada con Composer)
-            $imagen = $manager->read($_FILES['imagen']['tmp_name'])->cover(800, 600);
+            $imagen = $manager->read($_FILES['propiedad']['tmp_name']['imagen'])->cover(800, 600);
             $propiedad->setImagen($nombreImagen);
         }
 
