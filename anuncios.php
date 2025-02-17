@@ -8,10 +8,7 @@
 
         <!-- Aquí van los anuncios -->
         <?php 
-         
-         $limite = 10;
-         include 'includes/templates/anuncios.php';
-
+            include 'includes/templates/anuncios.php';
         ?>
 
     </main>

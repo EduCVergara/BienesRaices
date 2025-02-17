@@ -73,7 +73,7 @@ class ActiveRecord {
 
         if ($resultado) {
             $this->borrarImagen();
-            header('location: /admin?resultado=3&titulo=' . urlencode($this->titulo));
+            header('Location: /admin?resultado=3&titulo=' . urlencode($this->titulo));
         }
     }
 
@@ -141,6 +141,16 @@ class ActiveRecord {
     // Lista todas los elementos de la tabla seleccionada
     public static function all() {
         $query = "SELECT * FROM " . static::$tabla;
+        
+        $resultado = self::consultarSQL($query);
+
+        return $resultado;
+    }
+
+    // Obtiene determinado número de registros
+    public static function limite($limite) {
+        $query = "SELECT * FROM " . static::$tabla . " LIMIT " . $limite;
+        
         $resultado = self::consultarSQL($query);
 
         return $resultado;
