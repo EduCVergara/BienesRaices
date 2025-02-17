@@ -83,7 +83,6 @@ function abrirModal(event, id, tipo) {
     document.getElementById("tipoModal").value = tipo;
     // Guardamos el ID en el input del modal
     document.getElementById("idEliminar").value = id;
-    
     // Mostramos el modal
     document.getElementById("modalConfirmacion").style.display = "flex";
 }

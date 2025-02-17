@@ -44,14 +44,15 @@
         <h1>Administración de Bienes Raíces</h1>
 
         <?php if($resultado == 1): ?>
-            <p class="alerta exito">Propiedad <strong><?php $titulo = $_GET['titulo']; echo "'" . s($titulo) . "'"; ?></strong> Agregada Correctamente</p>
+            <p class="alerta exito">Elemento Agregado Correctamente</p>
         <?php elseif($resultado == 2): ?>
-            <p class="alerta exito">Datos de <strong><?php $titulo = $_GET['titulo']; echo "'" . s($titulo) . "'"; ?></strong> Actualizados Correctamente </p>
+            <p class="alerta exito">Datos Actualizados Correctamente </p>
         <?php elseif($resultado == 3): ?>
-            <p class="alerta exito">Propiedad <strong><?php $titulo = $_GET['titulo']; echo "'" . s($titulo) . "'"; ?></strong> Eliminada</p>
+            <p class="alerta exito">Elemento Eliminado</p>
         <?php endif; ?>
 
         <a href="/admin/propiedades/crear.php" class="boton boton-verde">Nueva Propiedad</a>
+        <a href="/admin/vendedores/crear.php" class="boton boton-verde">Nuevo Vendedor(a)</a>
 
         <h2>Propiedades</h2>
 
