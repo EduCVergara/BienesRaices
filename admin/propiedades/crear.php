@@ -2,20 +2,17 @@
     require '../../includes/app.php';
 
     use App\Propiedad;
-use Intervention\Image\Drivers\Gd\Driver;
-use Intervention\Image\ImageManager as Image;
-
+    use App\Vendedores;
+    use Intervention\Image\Drivers\Gd\Driver;
+    use Intervention\Image\ImageManager as Image;
+    
     // Comprobar la sesión
     Autenticado();
 
-    // Conectar a la bd
-    $db = conectarDB();
-
     $propiedad = new Propiedad();
 
-    // Consultar para obtener los vendedores
-    $queryVendedores = "SELECT * FROM vendedores";
-    $resultado = mysqli_query($db, $queryVendedores);
+    // Consulta para obtener todos los vendedores
+    $vendedores = Vendedores::all();
 
     // Array con mensajes de errores
     $errores = Propiedad::getErrores();
@@ -36,31 +33,20 @@ use Intervention\Image\ImageManager as Image;
 
         $errores = $propiedad->validar();
 
-        
-
         if (empty($errores)) {
 
             // * SUBIDA DE ARCHIVOS *//
-
             if (!is_dir(CARPETA_IMAGENES)) {
                 mkdir(CARPETA_IMAGENES);
             }
 
             // Guarda la imagen en el servidor
-            $imagen->save(CARPETA_IMAGENES . $nombreImagen);
-
-            $resultado = $propiedad->guardar();
-
-            if ($resultado) {
-                // Redireccionar al Usuario
-                header('Location: /admin?resultado=1');
+            if (isset($imagen)) {
+                $imagen->save(CARPETA_IMAGENES . $nombreImagen);
             }
-        } else {
 
+            $propiedad->guardar();
         }
-
-        
-
     }
 
     $inicio = true;

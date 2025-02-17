@@ -1,6 +1,7 @@
 <?php
 
 use App\Propiedad;
+use App\Vendedores;
 use Intervention\Image\Drivers\Gd\Driver;
 use Intervention\Image\ImageManager as Image;
 
@@ -9,9 +10,6 @@ use Intervention\Image\ImageManager as Image;
     
     Autenticado();
 
-    // Consultar para obtener los vendedores
-    $queryVendedores = "SELECT * FROM vendedores";
-    $resultado = mysqli_query($db, $queryVendedores);
     // Validacion de Id válido
     $id = $_GET['id'];
     $id = filter_var($id, FILTER_VALIDATE_INT);
@@ -22,9 +20,10 @@ use Intervention\Image\ImageManager as Image;
     // Obtener los datos de la propiedad
     $propiedad = Propiedad::find($id);
 
-    
+    // Consulta para obtener todos los vendedores
+    $vendedores = Vendedores::all(); 
+   
     // Array con mensajes de errores
-
     $errores = Propiedad::getErrores();
 
     // Ejecutar el código luego de que el usuario envía el formulario
@@ -35,37 +34,27 @@ use Intervention\Image\ImageManager as Image;
 
         $propiedad->sync($args);
 
+        // Validación de campos
         $errores = $propiedad->validar();
 
+        // Genera un nombre único a la imagen
+        $nombreImagen = md5(uniqid(rand(), true)) . ".jpg";
 
+        // Setear la imagen
+        // Realiza un resize a la imagen con intervention
+        if ($_FILES['propiedad']['tmp_name']['imagen']) {
+            $manager = new Image(Driver::class);// $manager es la variable para intervention image (subir imágenes con POO instalada con Composer)
+            $imagen = $manager->read($_FILES['propiedad']['tmp_name']['imagen'])->cover(800, 600);
+            $propiedad->setImagen($nombreImagen);
+        }
         // Revisar que el arreglo de errores esté vacío
         if (empty($errores)) {
-
-            $nombreImagen = md5(uniqid(rand(), true)) . ".jpg";
-
-            if ($_FILES['propiedad']['tmp_name']['imagen']) {
-                $manager = new Image(Driver::class);// $manager es la variable para intervention image (subir imágenes con POO instalada con Composer)
-                $imagen = $manager->read($_FILES['propiedad']['tmp_name']['imagen'])->cover(800, 600);
-                $propiedad->setImagen($nombreImagen);
+            // Almacenar la imagen
+            if ($_FILES['propiedad']['tmp_name']['imagen']){
+                $image->save(CARPETA_IMAGENES . $nombreImagen);
             }
-            
-            exit;
-            // Insertar en la base de datos
-            $query = "UPDATE propiedades SET titulo='{$titulo}', precio='{$precio}', imagen = '{$nombreImagen}', descripcion='{$descripcion}', habitaciones={$habitaciones}, wc={$wc}, estacionamiento={$estacionamiento}, vendedores_id={$vendedorId} WHERE id={$id} ";
-
-            // echo $query;
-            $resultado = mysqli_query($db, $query);
-
-            if ($resultado) {
-                // Redireccionar al Usuario
-                header('Location: /admin?resultado=2');
-            }
-        } else {
-
+            $propiedad->guardar();
         }
-
-        
-
     }
 
     $inicio = true;

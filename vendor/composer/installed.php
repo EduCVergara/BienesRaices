@@ -3,7 +3,7 @@
         'name' => 'usuario/bienes-raices',
         'pretty_version' => 'dev-main',
         'version' => 'dev-main',
-        'reference' => 'c74faf7fe706b8b2256b3c68ad11e3fec09f53f2',
+        'reference' => 'eff64a7434a75aba9233558aa75f3a326d6be740',
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -31,7 +31,7 @@
         'usuario/bienes-raices' => array(
             'pretty_version' => 'dev-main',
             'version' => 'dev-main',
-            'reference' => 'c74faf7fe706b8b2256b3c68ad11e3fec09f53f2',
+            'reference' => 'eff64a7434a75aba9233558aa75f3a326d6be740',
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),

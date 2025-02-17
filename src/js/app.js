@@ -72,14 +72,15 @@ function borraMensaje() {
 }
 
 // Modal confirmación de eliminación
-function abrirModal(event, id) {
+function abrirModal(event, id, tipo) {
     event.preventDefault(); // Evita que el formulario se envíe
 
     if (!id || isNaN(id) || id <= 0) {
-        alert("ID no válido. No se puede eliminar la propiedad.");
+        alert("ID no válido. No se puede eliminar el elemento.");
         return false;
     }
-
+    // Guardamos el tipo en el input del modal
+    document.getElementById("tipoModal").value = tipo;
     // Guardamos el ID en el input del modal
     document.getElementById("idEliminar").value = id;
     
